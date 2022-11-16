@@ -13,18 +13,17 @@ let searchQuery = null;
 let pageStart = 1;
 
 function onFormSubmit(event) {
-  console.log(pageStart, 'pageStart 1');
   event.preventDefault();
+
   searchQuery = event.currentTarget.elements.searchQuery.value;
+
   try {
     fetchData(searchQuery, pageStart).then(data => {
       console.log(data);
-      const total = data.total;
+      const total = data.totalHits;
       const picsArr = data.hits;
       const picsLeft = total - picsArr.length * pageStart;
-      console.log(total);
       console.log(picsLeft);
-
       if (picsArr.length === 0) {
         Notify.failure(
           'Sorry, there are no images matching your search query. Please try again.',
@@ -57,10 +56,9 @@ function onFormSubmit(event) {
 function onLoadMoreBtnClick() {
   try {
     fetchData(searchQuery, pageStart).then(data => {
-      const total = data.total;
+      const total = data.totalHits;
       const picsArr = data.hits;
       const picsLeft = total - 40 * pageStart;
-      console.log(total);
       console.log(picsLeft);
 
       const markUp = createMarkUp(picsArr);
@@ -68,6 +66,10 @@ function onLoadMoreBtnClick() {
 
       if (picsLeft <= 0) {
         refs.loadMoreBtn.classList.add('is-hidden');
+        Notify.info(
+          "We're sorry, but you've reached the end of search results.",
+          notifySettings
+        );
         pageStart = 1;
         return;
       }
