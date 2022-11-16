@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import SimpleLightbox from 'simplelightbox';
+import 'simplelightbox/dist/simple-lightbox.min.css';
 import { createMarkUp } from './js/createMarkUp';
 import { refs } from './js/refs';
 import { fetchData } from './js/fetch';
@@ -25,7 +26,9 @@ function onFormSubmit(event) {
       const picsLeft = total - picsArr.length * pageStart;
       console.log(picsLeft);
 
-      Notify.success(`Hooray! We found ${total} images.`, notifySettings);
+      if (picsArr.length > 0) {
+        Notify.success(`Hooray! We found ${total} images.`, notifySettings);
+      }
 
       if (picsArr.length === 0) {
         Notify.failure(
