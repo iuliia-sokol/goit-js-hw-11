@@ -24,6 +24,9 @@ function onFormSubmit(event) {
       const picsArr = data.hits;
       const picsLeft = total - picsArr.length * pageStart;
       console.log(picsLeft);
+
+      Notify.success(`Hooray! We found ${total} images.`, notifySettings);
+
       if (picsArr.length === 0) {
         Notify.failure(
           'Sorry, there are no images matching your search query. Please try again.',
@@ -73,6 +76,7 @@ function onLoadMoreBtnClick() {
         pageStart = 1;
         return;
       }
+
       pageStart = pageStart + 1;
     });
   } catch {
