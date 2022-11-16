@@ -8,8 +8,6 @@ const refs = {
   gallery: document.querySelector('.gallery'),
 };
 
-const headers = {};
-
 const notifySettings = {
   width: '380px',
   position: 'right-top',
@@ -26,8 +24,16 @@ function onFormSubmit(event) {
   const searchQuery = event.currentTarget.elements.searchQuery.value;
   try {
     fetchData(searchQuery).then(data => {
-      console.log(data.hits);
-      const markUp = createMarkUp(data.hits);
+      const picsArr = data.hits;
+      if (picsArr.length === 0) {
+        Notify.failure(
+          'Sorry, there are no images matching your search query. Please try again.',
+          notifySettings
+        );
+        return;
+      }
+      refs.gallery.innerHTML = '';
+      const markUp = createMarkUp(picsArr);
       refs.gallery.insertAdjacentHTML('beforeend', markUp);
     });
   } catch {
@@ -49,17 +55,16 @@ async function fetchData(searchQuery) {
     image_type: 'photo',
     orientation: 'horizontal',
     safesearch: true,
+    page: 1,
+    per_page: 40,
   });
 
   const url = `https://pixabay.com/api/?${searchParams}`;
 
   const response = await fetch(url);
   if (response.status === 404) {
-    refs.spinner.classList.toggle('visually-hidden');
-    Notify.failure(
-      'Oops, no pics were found. Please try again',
-      notifySettings
-    );
+    // refs.spinner.classList.toggle('visually-hidden');
+    Notify.failure('Oops, no pics found. Please try again', notifySettings);
     return Promise.reject();
   }
   return await response.json();
