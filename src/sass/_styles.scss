@@ -50,8 +50,16 @@
 }
 
 .search {
-  padding: 20px;
-  background-color: darkslateblue;
+  position: sticky;
+  top: 0;
+  left: 0;
+  padding: 15px;
+  background-color: hsla(248, 39%, 39%, 0.7);
+
+  &:hover,
+  &:focus {
+    background-color: hsla(248, 39%, 39%, 1);
+  }
 
   &__form {
     display: flex;

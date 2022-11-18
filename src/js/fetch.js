@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 export async function fetchData(searchQuery, pageStart) {
   const API_KEY = '30742354-1ccc482155368d7c8e305125c';
 
@@ -13,11 +15,10 @@ export async function fetchData(searchQuery, pageStart) {
 
   const url = `https://pixabay.com/api/?${searchParams}`;
 
-  const response = await fetch(url);
+  const response = await axios.get(url);
   if (response.status === 404) {
-    // refs.spinner.classList.toggle('visually-hidden');
     Notify.failure('Oops, no pics found. Please try again', notifySettings);
     return Promise.reject();
   }
-  return await response.json();
+  return response;
 }
