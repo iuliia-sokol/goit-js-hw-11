@@ -52,6 +52,7 @@ function onFormSubmit(event) {
           notifySettings
         );
         refs.gallery.innerHTML = '';
+        refs.loadMoreBtn.classList.add('is-hidden');
         return;
       }
 
