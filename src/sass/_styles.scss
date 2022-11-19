@@ -4,10 +4,10 @@
   padding: 0 25px;
 }
 
-.list-general {
-  list-style: none;
-  padding-left: 0;
-}
+// .list-general {
+//   list-style: none;
+//   padding-left: 0;
+// }
 
 .links-general {
   color: inherit;
@@ -16,31 +16,6 @@
 
 .image-display {
   display: block;
-}
-
-.modal-overlay {
-  width: 100vw;
-  height: 100%;
-  display: block;
-  position: fixed;
-  top: 0;
-  left: 0;
-  background-color: rgba(0, 0, 0, 0.2);
-  opacity: 1;
-  background-size: cover;
-}
-
-.visually-hidden {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  margin: -1px;
-  border: 0;
-  padding: 0;
-  white-space: nowrap;
-  clip-path: inset(100%);
-  clip: rect(0 0 0 0);
-  overflow: hidden;
 }
 
 .is-hidden {
@@ -55,6 +30,7 @@
   left: 0;
   padding: 15px;
   background-color: hsla(248, 39%, 39%, 0.7);
+  z-index: 100;
 
   &:hover,
   &:focus {
@@ -128,6 +104,13 @@
     border-radius: 8px;
     border: 2px solid hsla(0, 0%, 50%, 0.4);
     overflow: hidden;
+    @include transition(transform);
+    z-index: -1;
+
+    &:hover,
+    &:focus {
+      transform: scale(1.1);
+    }
   }
 
   &__img {
@@ -160,7 +143,7 @@
 }
 
 .load-more {
-  //   margin: 0 auto;
+  margin-top: 16px;
   padding: 8px 16px;
   background-color: hsla(248, 39%, 39%, 0.2);
   border: 3px solid hsla(248, 39%, 39%, 0.6);

@@ -8,7 +8,7 @@ import { createMarkUp } from './js/createMarkUp';
 
 refs.form.addEventListener('submit', onFormSubmit);
 refs.loadMoreBtn.addEventListener('click', onLoadMoreBtnClick);
-refs.input.addEventListener('input', onInputChange);
+refs.input.addEventListener('focus', onInputChange);
 
 function onInputChange() {
   refs.searchSection.style.backgroundColor = 'hsla(248, 39%, 39%, 1)';
